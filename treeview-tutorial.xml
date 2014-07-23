@@ -48,39 +48,41 @@
   <chapter id="ch-TreeView">
     <title>Lists and Trees: the GtkTreeView Widget</title>
 
-    <para><literal>GtkTreeView</literal> is a widget that displays single- or
-    multi-columned lists and trees. It replaces the old Gtk+-1.2 GtkCList and
-    GtkCTree widgets. Even though <literal>GtkTreeView</literal> is slightly
-    harder to master than its predecessors, it is so much more powerful and
-    flexible that most application developers will not want to miss it once
-    they have come to know it.</para>
+    <para><classname>GtkTreeView</classname> is a widget that displays single-
+    or multi-columned lists and trees. It replaces the old Gtk+-1.2
+    <classname>GtkCList</classname> and <classname>GtkCTree</classname>
+    widgets. Even though <classname>GtkTreeView</classname> is slightly harder
+    to master than its predecessors, it is so much more powerful and flexible
+    that most application developers will not want to miss it once they have
+    come to know it.</para>
 
     <para>The purpose of this chapter is not to provide an exhaustive
-    documentation of <literal>GtkTreeView</literal> - that is what the <ulink
-    url="http://developer.gnome.org/doc/API/2.0/gtk/TreeWidgetObjects.html">API
+    documentation of <classname>GtkTreeView</classname> – that is what the
+    <ulink
+    url="https://developer.gnome.org/gtk3/stable/TreeWidgetObjects.html">API
     documentation</ulink> is for, which should be read alongside with this
     tutorial. The goal is rather to present an introduction to the most
-    commonly-used aspects of <literal>GtkTreeView</literal>, and to
-    demonstrate how the various <literal>GtkTreeView</literal> components and
+    commonly-used aspects of <classname>GtkTreeView</classname>, and to
+    demonstrate how the various <classname>GtkTreeView</classname> components and
     concepts work together. Furthermore, an attempt has been made to shed some
     light on custom tree models and custom cell renderers, which seem to be
     often-mentioned, but rarely explained.</para>
 
     <para>Developers looking for a quick and dirty introduction that teaches
     them everything they need to know in less than five paragraphs will not
-    find it here. In the author's experience, developers who do not understand
+    find it here. In the authors’ experience, developers who do not understand
     how the tree view and the models work together will run into problems once
     they try to modify the given examples, whereas developers who have worked
-    with other toolkits that employ the Model/View/Controller-design will find
+    with other toolkits that employ the Model/View/Controller design will find
     that the API reference provides all the information they need to know in
     more condensed form anyway. Those who disagree may jump straight to the
     <link linkend="sec-treeview-col-example">working example code</link> of
     course.</para>
 
     <para>Please note that the code examples in the following sections do not
-    necessarily demonstrate how <literal>GtkTreeView</literal> is used best in
-    a particular situation. There are different ways to achieve the same
-    result, and the examples merely show those different ways, so that
+    necessarily demonstrate how <classname>GtkTreeView</classname> is used
+    best in a particular situation. There are different ways to achieve the
+    same result, and the examples merely show those different ways, so that
     developers are able to decide which one is most suitable for the task at
     hand.</para>
 
@@ -213,31 +215,31 @@ main (int argc, char **argv)
   <chapter id="sec-treeview-components">
     <title>Components: Model, Renderer, Column, View</title>
 
-    <para>The most important concept underlying <literal>GtkTreeView</literal>
-    is that of complete separation between data and how that data is displayed
-    on the screen. This is commonly known as Model/View/Controller-design
-    (MVC). Data of various type (strings, numbers, images, etc.) is stored in
-    a 'model'. The 'view' is then told which data to display, where to display
-    it, and how to display it. One of the advantages of this approach is that
-    you can have multiple views that display the same data (a directory tree
-    for example) in different ways, or in the same way multiple times, with
-    only one copy of the underlying data. This avoids duplication of data and
-    programming effort if the same data is re-used in different contexts.
-    Also, when the data in the model is updated, all views automatically get
-    updated as well.</para>
+    <para>The most important concept underlying
+    <classname>GtkTreeView</classname> is that of complete separation between
+    data and how that data is displayed on the screen. This is commonly known
+    as Model/View/Controller design (MVC). Data of various type (strings,
+    numbers, images, etc.) is stored in a 'model'. The 'view' is then told
+    which data to display, where to display it, and how to display it. One of
+    the advantages of this approach is that you can have multiple views that
+    display the same data (a directory tree for example) in different ways, or
+    in the same way multiple times, with only one copy of the underlying data.
+    This avoids duplication of data and programming effort if the same data is
+    re-used in different contexts. Also, when the data in the model is
+    updated, all views automatically get updated as well.</para>
 
-    <para>So, while <literal>GtkTreeModel</literal> is used to store data,
+    <para>So, while <classname>GtkTreeModel</classname> is used to store data,
     there are other components that determine which data is displayed in the
-    <literal>GtkTreeView</literal> and how it is displayed. These components
-    are <literal>GtkTreeViewColumn</literal> and
-    <literal>GtkCellRenderer</literal>. A <literal>GtkTreeView</literal> is
+    <classname>GtkTreeView</classname> and how it is displayed. These
+    components are <classname>GtkTreeViewColumn</classname> and
+    <classname>GtkCellRenderer</classname>. A <classname>GtkTreeView</classname> is
     made up of tree view columns. These are the columns that users perceive as
     columns. They have a clickable column header with a column title that can
     be hidden, and can be resized and sorted. Tree view columns do not display
     any data, they are only used as a device to represent the user-side of the
     tree view (sorting etc.) and serve as packing widgets for the components
     that do the actual rendering of data onto the screen, namely the
-    <literal>GtkCellRenderer</literal> family of objects (I call them
+    <classname>GtkCellRenderer</classname> family of objects (I call them
     'objects' because they are not GtkWidgets). There are a number of
     different cell renderers that specialise in rendering certain data like
     strings, pixbufs, or toggle buttons. More on this <link
@@ -248,10 +250,10 @@ main (int argc, char **argv)
     contain multiple cell renderers. For example, if one wanted to display a
     'Filename' column where each filename has a little icon on the left
     indicating the file type, one would pack a
-    <literal>GtkCellRendererPixbuf</literal> and a
-    <literal>GtkCellRendererText</literal> into one tree view column. Packing
+    <classname>GtkCellRendererPixbuf</classname> and a
+    <classname>GtkCellRendererText</classname> into one tree view column. Packing
     renderers into a tree view column is similar to packing widgets into a
-    <literal>GtkHBox</literal>.</para>
+    <classname>GtkHBox</classname>.</para>
   </chapter>
 
   <chapter id="sec-treemodels">
@@ -259,57 +261,57 @@ main (int argc, char **argv)
     GtkTreeStore</title>
 
     <para>It is important to realise what <ulink
-    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html"><literal>GtkTreeModel</literal></ulink>
-    is and what it is not. <literal>GtkTreeModel</literal> is basically just
+    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html"><classname>GtkTreeModel</classname></ulink>
+    is and what it is not. <classname>GtkTreeModel</classname> is basically just
     an 'interface' to the data store, meaning that it is a standardised set of
-    functions that allows a <literal>GtkTreeView</literal> widget (and the
+    functions that allows a <classname>GtkTreeView</classname> widget (and the
     application programmer) to query certain characteristics of a data store,
     for example how many rows there are, which rows have children, and how
     many children a particular row has. It also provides functions to retrieve
     data from the data store, and tell the tree view what type of data is
     stored in the model. Every data store must implement the
-    <literal>GtkTreeModel</literal> interface and provide these functions,
+    <classname>GtkTreeModel</classname> interface and provide these functions,
     which you can use by casting a store to a tree model with
-    <literal>GTK_TREE_MODEL(store)</literal>. <literal>GtkTreeModel</literal>
+    <literal>GTK_TREE_MODEL(store)</literal>. <classname>GtkTreeModel</classname>
     itself only provides a way to query a data store's characteristics and to
     retrieve existing data, it does not provide a way to remove or add rows to
     the store or put data into the store. This is done using the specific
     store's functions.</para>
 
     <para>Gtk+ comes with two built-in data stores (models): <ulink
-    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkListStore.html"><literal>GtkListStore</literal></ulink>
+    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkListStore.html"><classname>GtkListStore</classname></ulink>
     and <ulink
-    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeStore.html"><literal>GtkTreeStore</literal></ulink>.
-    As the names imply, <literal>GtkListStore</literal> is used for simple
+    url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeStore.html"><classname>GtkTreeStore</classname></ulink>.
+    As the names imply, <classname>GtkListStore</classname> is used for simple
     lists of data items where items have no hierarchical parent-child
-    relationships, and <literal>GtkTreeStore</literal> is used for tree-like
+    relationships, and <classname>GtkTreeStore</classname> is used for tree-like
     data structures, where items can have parent-child relationships. A list
     of files in a directory would be an example of a simple list structure,
     whereas a directory tree is an example for a tree structure. A list is
     basically just a special case of a tree with none of the items having any
     children, so one could use a tree store to maintain a simple list of items
-    as well. The only reason <literal>GtkListStore</literal> exists is in
+    as well. The only reason <classname>GtkListStore</classname> exists is in
     order to provide an easier interface that does not need to cater for
     child-parent relationships, and because a simple list model can be
     optimised for the special case where no children exist, which makes it
     faster and more efficient.</para>
 
-    <para><literal>GtkListStore</literal> and <literal>GtkTreeStore</literal>
+    <para><classname>GtkListStore</classname> and <classname>GtkTreeStore</classname>
     should cater for most types of data an application developer might want to
-    display in a <literal>GtkTreeView</literal>. However, it should be noted
-    that <literal>GtkListStore</literal> and <literal>GtkTreeStore</literal>
+    display in a <classname>GtkTreeView</classname>. However, it should be noted
+    that <classname>GtkListStore</classname> and <classname>GtkTreeStore</classname>
     have been designed with flexibility in mind. If you plan to store a lot of
     data, or have a large number of rows, you should consider implementing
     your own custom model that stores and manipulates data your own way and
-    implements the <literal>GtkTreeModel</literal> interface. This will not
+    implements the <classname>GtkTreeModel</classname> interface. This will not
     only be more efficient, but probably also lead to saner code in the long
     run, and give you more control over your data. See <link
     linkend="sec-custom-models">below</link> for more details on how to
     implement custom models.</para>
 
-    <para>Tree model implementations like <literal>GtkListStore</literal> and
-    <literal>GtkTreeStore</literal> will take care of the view side for you
-    once you have configured the <literal>GtkTreeView</literal> to display
+    <para>Tree model implementations like <classname>GtkListStore</classname> and
+    <classname>GtkTreeStore</classname> will take care of the view side for you
+    once you have configured the <classname>GtkTreeView</classname> to display
     what you want. If you change data in the store, the model will notify the
     tree view and your data display will be updated. If you add or remove
     rows, the model will also notify the store, and your row will appear in or
@@ -391,7 +393,7 @@ main (int argc, char **argv)
       <literal>G_TYPE_POINTER</literal> will often do as well, you will just
       need to take care of memory allocation and freeing yourself then.</para>
 
-      <para>Storing <literal>GObject</literal>-derived types (most
+      <para>Storing <classname>GObject</classname>-derived types (most
       <literal>GDK_TYPE_FOO</literal> and <literal>GTK_TYPE_FOO</literal>) is
       a special case that is dealt with <link
       linkend="sec-treemodel-storing-gobjects">further below</link>.</para>
@@ -416,17 +418,17 @@ main (int argc, char **argv)
       GtkTreeRowReference</title>
 
       <para>There are different ways to refer to a specific row. The two you
-      will have to deal with are <literal>GtkTreeIter</literal> and
-      <literal>GtkTreePath</literal>.</para>
+      will have to deal with are <classname>GtkTreeIter</classname> and
+      <classname>GtkTreePath</classname>.</para>
 
       <sect2 id="sec-treemodel-rowref-path">
         <title>GtkTreePath</title>
 
         <subtitle>Describing a row 'geographically'</subtitle>
 
-        <para>A <literal>GtkTreePath</literal> is a comparatively
+        <para>A <classname>GtkTreePath</classname> is a comparatively
         straight-forward way to describe the logical position of a row in the
-        model. As a <literal>GtkTreeView</literal> always displays
+        model. As a <classname>GtkTreeView</classname> always displays
         <emphasis>all</emphasis> rows in a model, a tree path always describes
         the same row in both model and view.</para>
 
@@ -475,7 +477,7 @@ main (int argc, char **argv)
         row than it refered to before the insertion/deletion/resorting. This
         is important to keep in mind. (See the <link
         linkend="sec-treemodel-rowref-rowref">section on
-        <literal>GtkTreeRowReference</literal>s below</link> for a tree path
+        <classname>GtkTreeRowReference</classname>s below</link> for a tree path
         that keeps updating itself to make sure it always refers to the same
         row when the model changes).</para>
 
@@ -485,14 +487,14 @@ main (int argc, char **argv)
         and only child of 'clips', and be described by the tree path that
         formerly belonged to 'funny clips', ie. "1:0:0".</para>
 
-        <para>You can get a new <literal>GtkTreePath</literal> from a path in
+        <para>You can get a new <classname>GtkTreePath</classname> from a path in
         string form using <literal>gtk_tree_path_new_from_string</literal>,
-        and you can convert a given <literal>GtkTreePath</literal> into its
+        and you can convert a given <classname>GtkTreePath</classname> into its
         string notation with <literal>gtk_tree_path_to_string</literal>.
         Usually you will rarely have to handle the string notation, it is
         described here merely to demonstrate the concept of tree paths.</para>
 
-        <para>Instead of the string notation, <literal>GtkTreePath</literal>
+        <para>Instead of the string notation, <classname>GtkTreePath</classname>
         uses an integer array internally. You can get the depth (ie. the
         nesting level) of a tree path with <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-path-get-depth">
@@ -527,7 +529,7 @@ main (int argc, char **argv)
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-model-get-iter">
         <literal>gtk_tree_model_get_iter</literal></ulink>.</para>
 
-        <para><literal>GtkTreePath</literal> is an opaque structure, with its
+        <para><classname>GtkTreePath</classname> is an opaque structure, with its
         details hidden from the compiler. If you need to make a copy of a tree
         path, use <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-path-copy">
@@ -540,7 +542,7 @@ main (int argc, char **argv)
         <subtitle>Refering to a row in model-speak</subtitle>
 
         <para>Another way to refer to a row in a list or tree is
-        <literal>GtkTreeIter</literal>. A tree iter is just a structure that
+        <classname>GtkTreeIter</classname>. A tree iter is just a structure that
         contains a couple of pointers that mean something to the model you are
         using. Tree iters are used internally by models, and they often
         contain a direct pointer to the internal data of the row in question.
@@ -548,10 +550,10 @@ main (int argc, char **argv)
         modify it directly either.</para>
 
         <para>All tree models (and therefore also
-        <literal>GtkListStore</literal> and <literal>GtkTreeStore</literal>)
+        <classname>GtkListStore</classname> and <classname>GtkTreeStore</classname>)
         must support the <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html">
-        <literal>GtkTreeModel</literal></ulink> functions that operate on tree
+        <classname>GtkTreeModel</classname></ulink> functions that operate on tree
         iters (e.g. get the tree iter for the first child of the row specified
         by a given tree iter, get the first row in the list/tree, get the n-th
         child of a given iter etc.). Some of these functions are:</para>
@@ -617,7 +619,7 @@ main (int argc, char **argv)
         otherwise. There are more functions that operate on iters. Check out
         the <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html">
-        <literal>GtkTreeModel</literal> API reference</ulink> for
+        <classname>GtkTreeModel</classname> API reference</ulink> for
         details.</para>
 
         <para>You might notice that there is no
@@ -640,7 +642,7 @@ main (int argc, char **argv)
         case a tree iter will be valid as long as a row exists), yet still it
         is not advisable to store iter structures unless you really mean to do
         that. There is a better way to keep track of a row over time:
-        <literal>GtkTreeRowReference</literal></para>
+        <classname>GtkTreeRowReference</classname></para>
       </sect2>
 
       <sect2 id="sec-treemodel-rowref-rowref">
@@ -648,7 +650,7 @@ main (int argc, char **argv)
 
         <subtitle>Keeping track of rows even when the model changes</subtitle>
 
-        <para>A <literal>GtkTreeRowReference</literal> is basically an object
+        <para>A <classname>GtkTreeRowReference</classname> is basically an object
         that takes a tree path, and watches a model for changes. If anything
         changes, like rows getting inserted or removed, or rows getting
         re-ordered, the tree row reference object will keep the given tree
@@ -703,7 +705,7 @@ main (int argc, char **argv)
         <para>In practice, a programmer can either use tree row references to
         keep track of rows over time, or store tree iters directly (if, and
         only if, the model has persistent iters). Both
-        <literal>GtkListStore</literal> and <literal>GtkTreeStore</literal>
+        <classname>GtkListStore</classname> and <classname>GtkTreeStore</classname>
         have persistent iters, so storing iters is possible. However, using
         tree row references is definitively the Right Way(tm) to do things,
         even though it comes with some overhead that might impact performance
@@ -711,7 +713,7 @@ main (int argc, char **argv)
         it might be preferable to write a custom model anyway though).
         Especially beginners might find it easier to handle and store tree row
         references than iters, because tree row references are handled by
-        pointer value, which you can easily add to a <literal>GList</literal>
+        pointer value, which you can easily add to a <classname>GList</classname>
         or pointer array, while it is easy to store tree iters in a wrong
         way.</para>
       </sect2>
@@ -772,7 +774,7 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
 
         <para>As tree iters are only valid for a short time, they are usually
         allocated on the stack, as in the following example (keep in mind that
-        <literal>GtkTreeIter</literal> is just a structure that contains data
+        <classname>GtkTreeIter</classname> is just a structure that contains data
         fields you do not need to know anything about):</para>
 
         <programlisting role="C">
@@ -1063,7 +1065,7 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
       <para>Here is the previous example extended to traverse the list store
       and print out the data stored. As an extra, we use
       <literal>gtk_tree_model_foreach</literal> to traverse the store and
-      retrieve the row number from the <literal>GtkTreePath</literal> passed
+      retrieve the row number from the <classname>GtkTreePath</classname> passed
       to us in the foreach callback function:</para>
 
       <programlisting role="C">
@@ -1186,8 +1188,8 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
         <literal>g_free</literal> the string returned when you don't need it
         any longer, as in the example above.</para>
 
-        <para>If you retrieve a <literal>GObject</literal> such as a
-        <literal>GdkPixbuf</literal> from the store,
+        <para>If you retrieve a <classname>GObject</classname> such as a
+        <classname>GdkPixbuf</classname> from the store,
         <literal>gtk_tree_model_get</literal> will automatically add a
         reference to it, so you need to call <literal>g_object_unref</literal>
         on the retrieved object once you are done with it:</para>
@@ -1210,10 +1212,10 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
   ...
 </programlisting>
 
-        <para>Similarly, <literal>GBoxed</literal>-derived types retrieved
+        <para>Similarly, <classname>GBoxed</classname>-derived types retrieved
         from a model need to be freed with <literal>g_boxed_free</literal>
         when done with them (don't worry if you have never heard of
-        <literal>GBoxed</literal>).</para>
+        <classname>GBoxed</classname>).</para>
 
         <para>If the model column is of type
         <literal>G_TYPE_POINTER</literal>,
@@ -1298,7 +1300,7 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
 
       <para>If you want to remove the n-th row from a list (or the n-th child
       of a tree node), you have two approaches: either you first create a
-      <literal>GtkTreePath</literal> that describes that row and then turn it
+      <classname>GtkTreePath</classname> that describes that row and then turn it
       into an iter and remove it; or you take the iter of the parent node and
       use <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-model-iter-nth-child">
@@ -1459,7 +1461,7 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
     <sect1 id="sec-treemodel-storing-gobjects">
       <title>Storing GObjects (Pixbufs etc.)</title>
 
-      <para>A special case are <literal>GObject</literal> types, like
+      <para>A special case are <classname>GObject</classname> types, like
       <literal>GDK_TYPE_PIXBUF</literal>, that get stored in a list or tree
       store. The store will not make a copy of the object, rather it will
       increase the object's refcount. The store will then unref the object
@@ -1514,7 +1516,7 @@ onTreeViewRowActivated (GtkTreeView *view, GtkTreePath *path,
 
       <para>Having learned how to add, manipulate, and retrieve data from a
       store, the next step is to get that data displayed in a
-      <literal>GtkTreeView</literal> widget.</para>
+      <classname>GtkTreeView</classname> widget.</para>
     </sect1>
 
     <sect1 id="sec-treemodel-storing-structs">
@@ -1838,8 +1840,8 @@ yourself. Some code snippets:
       <sect2 id="sec-treeview-connect-model-refcounting">
         <title>Reference counting</title>
 
-        <para>Tree models like <literal>GtkListStore</literal> and
-        <literal>GtkTreeStore</literal> are <literal>GObjects</literal> and
+        <para>Tree models like <classname>GtkListStore</classname> and
+        <classname>GtkTreeStore</classname> are <classname>GObjects</classname> and
         have a reference count of 1 after creation. The tree view will add its
         own reference to the model when you add the model with
         <literal>gtk_tree_view_set_model</literal>, and will unref it again
@@ -1931,9 +1933,9 @@ yourself. Some code snippets:
     resized or sorted. A tree view is made up of tree view columns, and you
     need at least one tree view column in order to display something in the
     tree view. Tree view columns, however, do not display anything by
-    themselves, this is done by specialised <literal>GtkCellRenderer</literal>
+    themselves, this is done by specialised <classname>GtkCellRenderer</classname>
     objects. Cell renderers are packed into tree view columns much like
-    widgets are packed into <literal>GtkHBoxes</literal>.</para>
+    widgets are packed into <classname>GtkHBox</classname>es.</para>
 
     <para>Here is a diagram (courtesy of Owen Taylor) that pictures the
     relationship between tree view columns and cell renderers:</para>
@@ -1965,7 +1967,7 @@ yourself. Some code snippets:
       <title>Cell Renderers</title>
 
       <para>Cell renderers are objects that are responsible for the actual
-      rendering of data within a <literal>GtkTreeViewColumn</literal>. They
+      rendering of data within a <classname>GtkTreeViewColumn</classname>. They
       are basically just GObjects (ie. not widgets) that have certain
       properties, and those properties determine how a single cell is
       drawn.</para>
@@ -1993,14 +1995,14 @@ yourself. Some code snippets:
         <listitem>
           <simpara><ulink
           url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRendererText.html">
-          <literal>GtkCellRendererText</literal></ulink> renders strings or
+          <classname>GtkCellRendererText</classname></ulink> renders strings or
           numbers or boolean values as text ("Joe", "99.32", "true")</simpara>
         </listitem>
 
         <listitem>
           <simpara><ulink
           url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRendererPixbuf.html">
-          <literal>GtkCellRendererPixbuf</literal></ulink> is used to display
+          <classname>GtkCellRendererPixbuf</classname></ulink> is used to display
           images; either user-defined images, or one of the stock icons that
           come with Gtk+.</simpara>
         </listitem>
@@ -2008,18 +2010,18 @@ yourself. Some code snippets:
         <listitem>
           <simpara><ulink
           url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRendererToggle.html">
-          <literal>GtkCellRendererToggle</literal></ulink> displays a boolean
+          <classname>GtkCellRendererToggle</classname></ulink> displays a boolean
           value in form of a check box or as a radio button.</simpara>
         </listitem>
 
         <listitem>
           <simpara><ulink
           url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellEditable.html">
-          <literal>GtkCellEditable</literal></ulink> is a special cell that
+          <classname>GtkCellEditable</classname></ulink> is a special cell that
           implements editable cells (ie. GtkEntry or GtkSpinbutton in a
           treeview). This is not a cell renderer! If you want to have editable
-          text cells, use <literal>GtkCellRendererText</literal> and make sure
-          the "editable" property is set. <literal>GtkCellEditable</literal>
+          text cells, use <classname>GtkCellRendererText</classname> and make sure
+          the "editable" property is set. <classname>GtkCellEditable</classname>
           is only used by implementations of editable cells and widgets that
           can be inside of editable cells. You are unlikely to ever need
           it.</simpara>
@@ -2081,7 +2083,7 @@ yourself. Some code snippets:
 
       <para>Here is a silly and utterly useless little example that
       demonstrates this behaviour, and introduces some of the most commonly
-      used properties of <literal>GtkCellRendererText</literal>:</para>
+      used properties of <classname>GtkCellRendererText</classname>:</para>
 
       <programlisting role="C">
 #include &lt;gtk/gtk.h&gt;
@@ -2286,11 +2288,11 @@ main (int argc, char **argv)
       example a bit further above, you might have noticed that we set the
       <literal>"cell-background"</literal> property of a <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRendererText.html">
-      <literal>GtkCellRendererText</literal></ulink>, even though the API
+      <classname>GtkCellRendererText</classname></ulink>, even though the API
       documentation does not list such a property. We can do this, because
-      <literal>GtkCellRendererText</literal> is derived from <ulink
+      <classname>GtkCellRendererText</classname> is derived from <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRenderer.html">
-      <literal>GtkCellRenderer</literal></ulink>, which does in fact <ulink
+      <classname>GtkCellRenderer</classname></ulink>, which does in fact <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRenderer.html#GtkCellRenderer--cell-background">
       have</ulink> such a property. Derived classes inherit the properties of
       their parents. This is the same as with widgets that you can cast into
@@ -2300,11 +2302,11 @@ main (int argc, char **argv)
       object is derived from.</para>
 
       <para>There are two more noteworthy things about
-      <literal>GtkCellRenderer</literal> properties: one is that sometimes
+      <classname>GtkCellRenderer</classname> properties: one is that sometimes
       there are different properties which do the same, but take different
       arguments, such as the <literal>"foreground"</literal> and
       <literal>"foreground-gdk"</literal> properties of
-      <literal>GtkCellRendererText</literal> (which specify the text colour).
+      <classname>GtkCellRendererText</classname> (which specify the text colour).
       The <literal>"foreground"</literal> property take a colour in string
       form, such as "Orange" or "CornflowerBlue", whereas
       <literal>"foreground-gdk"</literal> takes a <ulink
@@ -2485,7 +2487,7 @@ main (int argc, char **argv)
           properties according to values stored in the tree model (if any are
           mapped via <literal>gtk_tree_view_column_add_attribute</literal> or
           one of the convenience functions that do the same thing), and then
-          pass on the <literal>GValue</literal> retrieved to
+          pass on the <classname>GValue</classname> retrieved to
           <literal>g_object_set_property</literal>.</para>
         </footnote>.</para>
 
@@ -2883,7 +2885,7 @@ main (int argc, char **argv)
 
       <para>So far we have only put text in the tree view. While everything
       you need to know to display icons (in the form of
-      <literal>GdkPixbuf</literal>s) has been introduced in the previous
+      <classname>GdkPixbuf</classname>s) has been introduced in the previous
       sections, a short example might help to make things clearer. The
       following code will pack an icon and some text into the same tree view
       column:</para>
@@ -2963,11 +2965,11 @@ main (int argc, char **argv)
       <para>Note that the tree view will not resize icons for you, but
       displays them in their original size. If you want to display <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/gtk-Stock-Items.html">
-      stock icons</ulink> instead of <literal>GdkPixbuf</literal>s loaded from
+      stock icons</ulink> instead of <classname>GdkPixbuf</classname>s loaded from
       file, you should have a look at the <literal>"stock-id"</literal>
       property of <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkCellRendererPixbuf.html">
-      <literal>GtkCellRendererPixbuf</literal></ulink> (and your model column
+      <classname>GtkCellRendererPixbuf</classname></ulink> (and your model column
       should be of type <literal>G_TYPE_STRING</literal>, as all stock IDs are
       just strings by which to identify the stock icon).</para>
     </sect1>
@@ -2982,8 +2984,8 @@ main (int argc, char **argv)
       <para>One of the most basic features of a list or tree view is that rows
       can be selected or unselected. Selections are handled using the <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeSelection.html">
-      <literal>GtkTreeSelection</literal></ulink> object of a tree view. Every
-      tree view automatically has a <literal>GtkTreeSelection</literal>
+      <classname>GtkTreeSelection</classname></ulink> object of a tree view. Every
+      tree view automatically has a <classname>GtkTreeSelection</classname>
       associated with it, and you can get it using <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeView.html#gtk-tree-view-get-selection">
       <literal>gtk_tree_view_get_selection</literal></ulink>. Selections are
@@ -2992,7 +2994,7 @@ main (int argc, char **argv)
       particular reason why selection handling could not have been implemented
       with functions that access the tree view widget directly, but for
       reasons of API cleanliness and code clarity the Gtk+ developers decided
-      to create this special <literal>GtkTreeSelection</literal> object that
+      to create this special <classname>GtkTreeSelection</classname> object that
       then internally deals with the tree view widget. You will never need to
       create a tree selection object, it will be created for you automatically
       when you create a new tree view. You only need to use said
@@ -3045,7 +3047,7 @@ main (int argc, char **argv)
         all selected rows using <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeSelection.html#gtk-tree-selection-selected-foreach">
         <literal>gtk_tree_selection_selected_foreach</literal></ulink> or get
-        a <literal>GList</literal> of tree paths of the selected rows using
+        a <classname>GList</classname> of tree paths of the selected rows using
         <ulink
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeSelection.html#gtk-tree-selection-get-selected-rows">
         <literal>gtk_tree_selection_get_selected_rows</literal></ulink>. Note
@@ -3538,14 +3540,14 @@ main (int argc, char **argv)
     <para>Lists and trees are meant to be sorted. This is done using the
     <ulink
     url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeSortable.html">
-    <literal>GtkTreeSortable</literal></ulink> interface that can be
+    <classname>GtkTreeSortable</classname></ulink> interface that can be
     implemented by tree models. 'Interface' means that you can just cast a
-    <literal>GtkTreeModel</literal> into a <literal>GtkTreeSortable</literal>
+    <classname>GtkTreeModel</classname> into a <classname>GtkTreeSortable</classname>
     with <literal>GTK_TREE_SORTABLE(model)</literal> and use the documented
     tree sortable functions on it, just like we did before when we cast a list
     store to a tree model and used the <literal>gtk_tree_model_foo</literal>
-    family of functions. Both <literal>GtkListStore</literal> and
-    <literal>GtkTreeStore</literal> implement the tree sortable
+    family of functions. Both <classname>GtkListStore</classname> and
+    <classname>GtkTreeStore</classname> implement the tree sortable
     interface.</para>
 
     <para>The most straight forward way to sort a list store or tree store is
@@ -3565,7 +3567,7 @@ main (int argc, char **argv)
     special meaning and needs to be restored at some point. This is where
     <ulink
     url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModelSort.html">
-    <literal>GtkTreeModelSort</literal></ulink> comes in, which is a special
+    <classname>GtkTreeModelSort</classname></ulink> comes in, which is a special
     model that maps the unsorted rows of a child model (e.g. a list store or
     tree store) into a sorted state without changing the child model.</para>
 
@@ -3747,7 +3749,7 @@ main (int argc, char **argv)
 
       <para><ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModelSort.html">
-      <literal>GtkTreeModelSort</literal></ulink> is a wrapper tree model. It
+      <classname>GtkTreeModelSort</classname></ulink> is a wrapper tree model. It
       takes another tree model such as a list store or a tree store as child
       model, and presents the child model to the 'outside' (ie. a tree view or
       whoever else is accessing it via the tree model interface) in a sorted
@@ -3757,8 +3759,8 @@ main (int argc, char **argv)
       example, or if you need to restore the original unsorted state of your
       store again at some point.</para>
 
-      <para><literal>GtkTreeModelSort</literal> implements the
-      <literal>GtkTreeSortable</literal> interface, so you can treat it just
+      <para><classname>GtkTreeModelSort</classname> implements the
+      <classname>GtkTreeSortable</classname> interface, so you can treat it just
       as if it was your data store for sorting purposes. Here is the basic
       setup with a tree view:</para>
 
@@ -3901,7 +3903,7 @@ main (int argc, char **argv)
     <sect1 id="sec-editable-cells-text">
       <title>Editable Text Cells</title>
 
-      <para>With <literal>GtkCellRendererText</literal> you can not only
+      <para>With <classname>GtkCellRendererText</classname> you can not only
       display text, but you can also allow the user to edit a single cell's
       text right in the tree view by double-clicking on a cell.</para>
 
@@ -4033,9 +4035,9 @@ void        cell_edited_callback (GtkCellRendererText *cell,
     <sect1 id="sec-editable-cells-toggle">
       <title>Editable Toggle and Radio Button Cells</title>
 
-      <para>Just like you can set a <literal>GtkCellRendererText</literal>
+      <para>Just like you can set a <classname>GtkCellRendererText</classname>
       editable, you can specify whether a
-      <literal>GtkCellRendererToggle</literal> should change its state when
+      <classname>GtkCellRendererToggle</classname> should change its state when
       clicked by setting the <literal>"activatable"</literal> property -
       either when you create the renderer (in which case all cells in that
       column will be clickable) or by connecting the renderer property to a
@@ -4063,7 +4065,7 @@ void        cell_toggled_callback (GtkCellRendererToggle *cell,
       <para>Just like with the <literal>"edited"</literal> signal of the text
       cell renderer, the tree path is passed to the
       <literal>"toggled"</literal> signal callback in string form. You can
-      convert this into a <literal>GtkTreePath</literal> with <ulink
+      convert this into a <classname>GtkTreePath</classname> with <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-path-new-from-string">
       <literal>gtk_tree_path_new_from_string</literal></ulink>, or convert it
       into an iter with <ulink
@@ -4074,15 +4076,15 @@ void        cell_toggled_callback (GtkCellRendererToggle *cell,
     <sect1 id="sec-editable-cells-spin">
       <title>Editable Spin Button Cells</title>
 
-      <para>Even though <literal>GtkSpinButton</literal> implements the
-      <literal>GtkCellEditable</literal> interface (as does
-      <literal>GtkEntry</literal>), there is no easy way to get a cell
+      <para>Even though <classname>GtkSpinButton</classname> implements the
+      <classname>GtkCellEditable</classname> interface (as does
+      <classname>GtkEntry</classname>), there is no easy way to get a cell
       renderer that uses a spin button instead of a normal entry when in
       editing mode.</para>
 
       <para>To get this functionality, you need to either write a new cell
       renderer that works very similar to
-      <literal>GtkCellRendererText</literal>, or you need to write a new cell
+      <classname>GtkCellRendererText</classname>, or you need to write a new cell
       renderer class that derives from the text cell renderer and changes the
       behaviour in editing mode.</para>
 
@@ -4096,7 +4098,7 @@ void        cell_toggled_callback (GtkCellRendererToggle *cell,
 
       <para>Among this tutorial's code examples there is a hackish
       CellRendererSpin implementation which is based on
-      <literal>GtkCellRendererText</literal> and shows spin buttons in editing
+      <classname>GtkCellRendererText</classname> and shows spin buttons in editing
       mode. The implementation is not very refined though, so you need to make
       sure it works in your particular context, and modify it as
       needed.</para>
@@ -4115,7 +4117,7 @@ void        cell_toggled_callback (GtkCellRendererToggle *cell,
       <title>Getting the Column Number from a Tree View Column Widget</title>
 
       <para>Signal callbacks often only get passed a pointer to a
-      <literal>GtkTreeViewColumn</literal> when the application programmer
+      <classname>GtkTreeViewColumn</classname> when the application programmer
       really just wants to know which column <emphasis>number</emphasis> was
       affected. There are two ways to find out the position of a column within
       the tree view. One way is to write a small helper function that looks up
@@ -4356,7 +4358,7 @@ onButtonPress (GtkWidget *view, GdkEventButton *bevent, gpointer data)
       <title>Glade and Tree Views</title>
 
       <para>A frequently asked question is how you can add columns to a
-      <literal>GtkTreeView</literal> in <ulink
+      <classname>GtkTreeView</classname> in <ulink
       url="http://glade.gnome.org">Glade</ulink>. <footnote>
           <para>Do <emphasis>not</emphasis> use Glade to generate code for
           you. Use Glade to create the interface. It will save the interface
@@ -4368,16 +4370,16 @@ onButtonPress (GtkWidget *view, GdkEventButton *bevent, gpointer data)
           should avoid Glade code generation</ulink>.</para>
         </footnote> The answer is basically that you don't, and that you
       can't. The only thing glade/libglade can do for you is to create the
-      <literal>GtkTreeView</literal> for you with nothing in it. You will need
+      <classname>GtkTreeView</classname> for you with nothing in it. You will need
       to look up the tree view widget at the start of your application (after
       the interface has been created of course), and connect your list store
       or tree store to it. Then you will need to add
-      <literal>GtkTreeViewColumn</literal>s and cell renderers to display the
+      <classname>GtkTreeViewColumn</classname>s and cell renderers to display the
       information from the model as you want it to be displayed. You will need
       to do all that from within your application.</para>
 
       <para>An alternative approach is to derive your own special widget from
-      <literal>GtkTreeView</literal> that sets up everything as you want it
+      <classname>GtkTreeView</classname> that sets up everything as you want it
       to, and then use the 'custom widget' function in glade. Of course this
       still means that you have to write all the code to fill in the columns
       and cell renderers and to create the model yourself.</para>
@@ -4616,10 +4618,10 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
 
       <para>****** TODO</para>
 
-      <para>Both <literal>GtkListStore</literal> and
-      <literal>GtkTreeStore</literal> implement the
-      <literal>GtkTreeDragDest</literal> and
-      <literal>GtkTreeDragSource</literal> interfaces, which means that they
+      <para>Both <classname>GtkListStore</classname> and
+      <classname>GtkTreeStore</classname> implement the
+      <classname>GtkTreeDragDest</classname> and
+      <classname>GtkTreeDragSource</classname> interfaces, which means that they
       have in-built support for row reordering. You need to call
       <literal>gtk_tree_view_set_reorderable</literal> to activate this, and
       then connect to the tree model's signals to catch the reorderings that
@@ -4663,9 +4665,9 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
 
       <para>Using a custom model you could also implement a filter model that
       only displays certain rows according to some filter criterion instead of
-      displaying all rows (Gtk+-2.4 has a filter model, <literal> <ulink
+      displaying all rows (Gtk+-2.4 has a filter model, <classname> <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModelFilter.html">
-      GtkTreeModelFilter</ulink></literal>, that does exactly that and much
+      GtkTreeModelFilter</ulink></classname>, that does exactly that and much
       more, but you might want to implement this yourself anyway. If you need
       to use GtkTreeModelFilter in Gtk-2.0 or Gtk-2.2, check out the code
       examples of this tutorial - there is GuiTreeModelFilter, which is
@@ -4685,8 +4687,8 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
       <title>What Does Writing a Custom Model Involve?</title>
 
       <para>Basically, all you need to do is to write a new GObject that
-      implements the <literal>GtkTreeModel</literal> interface,
-      <literal>GtkTreeModelIface</literal>. Intimate knowledge about the GLib
+      implements the <classname>GtkTreeModel</classname> interface,
+      <classname>GtkTreeModelIface</classname>. Intimate knowledge about the GLib
       GObject system is not a requirement - you just need to copy some
       boilerplate code and modify it a bit. The core of your custom tree model
       is your own implementation of a couple of
@@ -4781,15 +4783,15 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
       implementation of the tree model functions.</para>
 
       <para>Our list model is represented by a simple list of records, where
-      each row corresponds to a <literal>CustomRecord</literal> structure
+      each row corresponds to a <classname>CustomRecord</classname> structure
       which keeps track of the data we are interested in. For now, we only
       want to keep track of persons' names and years of birth (usually this
       would not really justify a custom model, but this is still just an
       example). It is trivial to extend the model to deal with additional
-      fields in the <literal>CustomRecord</literal> structure.</para>
+      fields in the <classname>CustomRecord</classname> structure.</para>
 
       <para>Within the model, more precisely: the
-      <literal>CustomList</literal> structure, the list is stored as a pointer
+      <classname>CustomList</classname> structure, the list is stored as a pointer
       array, which not only provides fast access to the n-th record in the
       list, but also comes in handy later on when we add sorting. Apart from
       that, any other kind of list-specific data would go in this structure as
@@ -4797,7 +4799,7 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
       searching for a specific row, etc.).</para>
 
       <para>Each row in our list is represented by a
-      <literal>CustomRecord</literal> structure. You can store whatever other
+      <classname>CustomRecord</classname> structure. You can store whatever other
       data you need in that structure. How you make row data available is up
       to you. Either you export it via the tree model interface using the
       <ulink
@@ -4816,7 +4818,7 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
 
       <para>Some thought should go into how exactly you fill the <ulink
       url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#GtkTreeIter">
-      <literal>GtkTreeIter</literal> fields</ulink> of the tree iters used by
+      <classname>GtkTreeIter</classname> fields</ulink> of the tree iters used by
       your model. You have three pointer fields at your disposal. These should
       be filled so that you can easily identify the row given the iter, and
       should also facilitate access to the next row and the parent row (if
@@ -4833,9 +4835,9 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
       of lines of code to print here).</para>
 
       <para>In our specific example, we simply store a pointer to a row's
-      <literal>CustomRecord</literal> structure in our model's tree iters,
+      <classname>CustomRecord</classname> structure in our model's tree iters,
       which is valid as long as the row exists. Additionally we store the
-      position of a row within the list in the <literal>CustomRecord</literal>
+      position of a row within the list in the <classname>CustomRecord</classname>
       as well, which is not only intuitive, but is also useful later on when
       we resort the list.</para>
 
@@ -4850,12 +4852,12 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
 
         <para>The <link linkend="sec-custom-model-code-header">header
         file</link> for our custom list model defines some standard type casts
-        and type check macros, our <literal>CustomRecord</literal> structure,
-        our <literal>CustomList</literal> structure, and some enums for the
+        and type check macros, our <classname>CustomRecord</classname> structure,
+        our <classname>CustomList</classname> structure, and some enums for the
         model columns we are exporting.</para>
 
-        <para>The <literal>CustomRecord</literal> structure represents one
-        row, while the <literal>CustomList</literal> structure contains all
+        <para>The <classname>CustomRecord</classname> structure represents one
+        row, while the <classname>CustomList</classname> structure contains all
         list-specific data. You can add additional fields to both structures
         without problems. For example, you might need a function that quickly
         looks up rows given the name or year of birth, for which additional
@@ -4884,9 +4886,9 @@ view_onDragMotion (GtkWidget *widget, GdkDragContext *context, gint x,
         <literal>custom_list_init</literal> we define what data type our
         exported model columns have, and how many columns we export. Towards
         the end of <literal>custom_list_get_type</literal> we register the
-        <literal>GtkTreeModel</literal> interface with our custom model
+        <classname>GtkTreeModel</classname> interface with our custom model
         object. This is where we can also register additional interfaces (e.g.
-        <literal>GtkTreeSortable</literal> or one of the Drag'n'Drop
+        <classname>GtkTreeSortable</classname> or one of the Drag'n'Drop
         interfaces) that we want to implement.</para>
 
         <para>In <literal>custom_list_tree_model_init</literal> we override
@@ -5122,11 +5124,11 @@ custom_list_tree_model_init (GtkTreeModelIface *iface)
       list model, but follows the same pattern. Basically you just need to
       extend the above model to cater for the case of children. You could do
       this by keeping track of the whole tree hierarchy in the
-      <literal>CustomList</literal> structure, using GLib N-ary trees for
+      <classname>CustomList</classname> structure, using GLib N-ary trees for
       example, or you could do this by keeping track of each row's children
-      within the row's <literal>CustomRecord</literal> structure, keeping only
+      within the row's <classname>CustomRecord</classname> structure, keeping only
       a pointer to the (invisible) root record in the
-      <literal>CustomList</literal> structure.</para>
+      <classname>CustomList</classname> structure.</para>
 
       <para>TODO: do we need anything else here?</para>
     </sect1>
@@ -5156,7 +5158,7 @@ custom_list_tree_model_init (GtkTreeModelIface *iface)
       </itemizedlist>
 
       <para>Here, we will show how to implement additional interfaces at the
-      example of the <literal>GtkTreeSortable</literal> interface, which we
+      example of the <classname>GtkTreeSortable</classname> interface, which we
       will implement only partially (enough to make it functional and useful
       though).</para>
 
@@ -5204,7 +5206,7 @@ custom_list_tree_model_init (GtkTreeModelIface *iface)
   ...
 </programlisting>
 
-      <para>Next, let's extend our <literal>CustomList</literal> structure
+      <para>Next, let's extend our <classname>CustomList</classname> structure
       with a field for the currently active sort column ID and one for the
       sort order, and add an enum for the sort column IDs:</para>
 
@@ -6472,7 +6474,7 @@ main (int argc, char **argv)
     extend its functionality.</para>
 
     <para>You can do this by writing a new object that derives from
-    <literal>GtkCellRenderer</literal> (or even one of the other cell
+    <classname>GtkCellRenderer</classname> (or even one of the other cell
     renderers if you just want to extend an existing one).</para>
 
     <para>Three things you need to do in the course of that:</para>
@@ -6488,7 +6490,7 @@ main (int argc, char **argv)
       <listitem>
         <para>Write your own <literal>cell_renderer_get_size</literal>
         function and override the parent object's function (usually the parent
-        is of type <literal>GtkCellRenderer</literal>. Note that you should
+        is of type <classname>GtkCellRenderer</classname>. Note that you should
         honour the standard properties for padding and cell alignment of the
         parent object here.</para>
       </listitem>
@@ -6506,8 +6508,8 @@ main (int argc, char **argv)
     according to your own needs.</para>
 
     <para>Good examples of cell renderer code to look at or even modify are
-    <literal>GtkCellRendererPixbuf</literal> and
-    <literal>GtkCellRendererToggle</literal> in the Gtk+ source code tree.
+    <classname>GtkCellRendererPixbuf</classname> and
+    <classname>GtkCellRendererToggle</classname> in the Gtk+ source code tree.
     Both cases are less than five hundred lines of code to look at and thus
     should be fairly easy to digest.</para>
 
@@ -6539,14 +6541,14 @@ main (int argc, char **argv)
         <title>custom-cell-renderer-progressbar.h</title>
 
         <para>The header file consists of the usual GObject type cast and type
-        check defines and our <literal>CustomCellRendererProgress</literal>
+        check defines and our <classname>CustomCellRendererProgress</classname>
         structure. As the type of the parent indicates, we derive from
-        <literal>GtkCellRenderer</literal>. The parent object must always be
+        <classname>GtkCellRenderer</classname>. The parent object must always be
         the first item in the structure (note also that it is not a pointer to
         an object, but the parent object structure itself embedded in our
         structure).</para>
 
-        <para>Our <literal>CustomCellRendererProgress</literal> structure is
+        <para>Our <classname>CustomCellRendererProgress</classname> structure is
         fairly uneventful and contains only a double precision float variable
         in which we store our new <literal>"percentage"</literal> property
         (which will determine how long the progressbar is going to be).</para>
@@ -6952,7 +6954,7 @@ custom_cell_renderer_progress_render (GtkCellRenderer *cell,
         <title>main.c</title>
 
         <para>And here is a little test that makes use of our new
-        <literal>CustomCellRendererProgress</literal>:</para>
+        <classname>CustomCellRendererProgress</classname>:</para>
 
         <programlisting role="C">
 #include "custom-cell-renderer-progressbar.h"
