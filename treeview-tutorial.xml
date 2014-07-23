@@ -22,8 +22,8 @@
     </authorgroup>
 
     <abstract>
-      <para>This is a tutorial on how to use the GTK (the GIMP Toolkit)
-      GtkTreeView widget through its C interface.</para>
+      <para>This is a tutorial on how to use the GTK+ GtkTreeView widget
+      through its C interface.</para>
 
       <para>Please mail all comments and suggestions to <email>tim at
       centricular dot net</email></para>
@@ -99,8 +99,9 @@
     <sect1 id="sec-TreeView-HelloWorld">
       <title>Hello World</title>
 
-      <para>For the impatient, here is a small treeview 'Hello World' program
-      (which can also be found in the examples section of the <ulink
+      <para>For the impatient, here is a small
+      <classname>GtkTreeView</classname> ‘Hello World’ program (which can also
+      be found in the examples section of the <ulink
       url="treeview-tutorial.tar.gz"> treeview-tutorial.tar.gz</ulink>
       tarball).</para>
 
