@@ -681,7 +681,7 @@ main (int argc, char **argv)
         url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-row-reference-valid">
         <literal>gtk_tree_row_reference_valid</literal></ulink>, and free it
         with <ulink
-        url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-row-reference-free">
+        url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html#gtk-tree-row-reference-free">gtk_tree_row_reference_free
         <literal/></ulink> when no longer needed.</para>
 
         <para>For the curious: internally, the tree row reference connects to
