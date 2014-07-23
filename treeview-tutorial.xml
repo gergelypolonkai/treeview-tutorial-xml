@@ -92,6 +92,10 @@
     developers are able to decide which one is most suitable for the task at
     hand.</para>
 
+    <para>You can compile all the examples the standard GTK way on Linux. Just
+    use the <command>gcc `pkg-config --cflags --libs gtk+-3.0` -o treeviewtest
+    treeviewtest.c</command> command.</para>
+
     <sect1 id="sec-TreeView-HelloWorld">
       <title>Hello World</title>
 
@@ -100,15 +104,7 @@
       url="treeview-tutorial.tar.gz"> treeview-tutorial.tar.gz</ulink>
       tarball).</para>
 
-      <programlisting role="C">
-
-/* 
- * Compile with:
- *  gcc -o helloworld helloworld.c `pkg-config --cflags --libs gtk+-2.0`
- *
- */
-
-#include &lt;gtk/gtk.h&gt;
+      <programlisting role="C">#include &lt;gtk/gtk.h&gt;
 
 enum
 {
@@ -5559,12 +5555,7 @@ custom_list_tree_model_init (GtkTreeModelIface *iface)
       <title>Working Example: Custom List Model Source Code</title>
 
       <para>Here is the complete source code for the custom list model
-      presented <link linkend="sec-custom-model-list">above</link>. Compile
-      with:</para>
-
-      <programlisting>
-  gcc -o customlist custom-list.c main.c `pkg-config --cflags --libs gtk+-2.0`
-</programlisting>
+      presented <link linkend="sec-custom-model-list">above</link>.</para>
 
       <itemizedlist>
         <listitem>
